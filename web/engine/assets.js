@@ -1,6 +1,18 @@
 // 资源加载：场景 JSON、网格二进制、贴图（PNG 或原始像素）。全部按 URL 缓存。
 import { ATTRIBS } from './shaderlab.js';
 
+// 海外版放在 Cloudflare Pages，单个文件不能超过 25 MB：超大的网格（如 GrassField）那边只放 .gz。
+// 取原文件 404 时改取 .gz，在浏览器里解压（国内服务器上原文件都在，不走这里）。
+async function fetchBig(url) {
+  const r = await fetch(url);
+  if (r.status !== 404 || typeof DecompressionStream === 'undefined') return r;
+  const g = await fetch(url + '.gz');
+  if (!g.ok) return r;
+  const buf = new Uint8Array(await g.arrayBuffer());
+  if (buf[0] !== 0x1f || buf[1] !== 0x8b) return new Response(buf);          // 已被解过压
+  return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip')));
+}
+
 export class Assets {
   constructor(glc, base) {
     this.glc = glc;
@@ -22,7 +34,7 @@ export class Assets {
   text(p) { return this.once('text:' + p, async () => { const r = await fetch(this.url(p)); if (!r.ok) throw new Error(`加载失败 ${p}（${r.status}）`); return r.text(); }); }
   async bin(p) {
     return this.once('bin:' + p, async () => {
-      const r = await fetch(this.url(p));
+      const r = await fetchBig(this.url(p));
       if (!r.ok) throw new Error(`加载失败 ${p}（${r.status}）`);
       const buf = await r.arrayBuffer();
       const hl = new DataView(buf).getUint32(0, true);
