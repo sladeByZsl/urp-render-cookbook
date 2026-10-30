@@ -1,5 +1,12 @@
 # URP 渲染实战 · Unity URP Shader、PBR 与效果案例
 
+[![在线预览](https://img.shields.io/badge/在线预览-gametech.byte888.com%2Furp-2a78d6)](https://gametech.byte888.com/urp/)
+[![English](https://img.shields.io/badge/English-%2Furp%2Fen%2F-2a78d6)](https://gametech.byte888.com/urp/en/)
+![Unity 2022.3 · URP 14](https://img.shields.io/badge/Unity-2022.3%20%C2%B7%20URP%2014-222)
+[![License: MIT](https://img.shields.io/badge/License-MIT-1baf7a)](LICENSE)
+
+> **English** — Companion code for *URP Rendering in Practice*: 30 chapters and 234 shader recipes for **Unity 2022.3 LTS + URP 14 (HLSL)**, from your first URP shader to lighting, shadows, hand-written PBR, toon shading, stylized water, dissolve / hologram / shield, decals, Renderer Features and custom post-processing. Every effect runs live in the browser (a WebGL2 "mini URP" port) with tweakable parameters: **https://gametech.byte888.com/urp/en/**. Code comments are in Chinese. MIT licensed.
+
 《URP 渲染实战》的配套代码：**Unity 2022.3 LTS + URP 14** 下的 30 章、234 个渲染案例，从第一个 URP Shader 写到光照、阴影、PBR、卡通渲染、水、溶解、贴花、Renderer Feature 与后处理。
 
 **👉 在线阅读（每个效果都能在浏览器里实时预览、调参数、改代码）：https://gametech.byte888.com/urp/**
